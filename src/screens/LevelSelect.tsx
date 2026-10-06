@@ -35,7 +35,9 @@ export function LevelSelect({
                 {unlocked ? (
                   <>
                     <p>{words.length} {words.length === 1 ? 'palabra lista' : 'palabras listas'}</p>
-                    {progress[level.id] && <Stars count={progress[level.id].stars} />}
+                    {progress[level.id] && (
+                      <Stars count={Math.max(0, Math.min(3, progress[level.id].stars))} />
+                    )}
                   </>
                 ) : (
                   <p className="locked-copy">Faltan letras por calibrar: {missing.join(', ')}</p>

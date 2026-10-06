@@ -45,4 +45,41 @@ describe('almacenamiento local de letras', () => {
       'El JSON debe tener letras válidas',
     )
   })
+
+  it('rechaza letras sin condiciones usables', () => {
+    expect(
+      () =>
+        importLetters(
+          JSON.stringify({ B: { ...originalLetter, letter: 'B', constraints: [] } }),
+        ),
+    ).toThrow('El JSON debe tener letras válidas')
+    expect(
+      () =>
+        importLetters(
+          JSON.stringify({
+            B: {
+              ...originalLetter,
+              letter: 'B',
+              constraints: [
+                { feature: 'curl.index', min: 0, max: 90, weight: 0 },
+              ],
+            },
+          }),
+        ),
+    ).toThrow('El JSON debe tener letras válidas')
+  })
+
+  it('rechaza un archivo de importación vacío', () => {
+    expect(() => importLetters('{}')).toThrow('El archivo no tiene ninguna letra.')
+  })
+
+  it('combina las letras importadas con las personalizadas existentes', () => {
+    const first = { ...originalLetter, description: 'A personalizada' }
+    const second = { ...originalLetter, letter: 'B', description: 'B importada' }
+
+    expect(importLetters(JSON.stringify({ A: first }))).toBe(1)
+    expect(importLetters(JSON.stringify({ B: second }))).toBe(1)
+    expect(loadLetters().A).toEqual(first)
+    expect(loadLetters().B).toEqual(second)
+  })
 })

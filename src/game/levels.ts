@@ -1,4 +1,5 @@
 import type { LetterSet } from '../scoring/types'
+import { isPlayableLetter } from '../scoring/evaluate'
 
 export type Level = { id: string; name: string; emoji: string; words: string[] }
 
@@ -26,11 +27,18 @@ export const LEVELS: Level[] = [
 ]
 
 export function missingLetters(level: Level, letters: LetterSet): string[] {
-  return [...new Set(level.words.join('').split('').filter((letter) => !letters[letter]))].sort()
+  return [
+    ...new Set(
+      level.words
+        .join('')
+        .split('')
+        .filter((letter) => !isPlayableLetter(letters[letter])),
+    ),
+  ].sort()
 }
 
 export function playableWords(level: Level, letters: LetterSet): string[] {
   return level.words.filter((word) =>
-    word.split('').every((letter) => Boolean(letters[letter])),
+    word.split('').every((letter) => isPlayableLetter(letters[letter])),
   )
 }

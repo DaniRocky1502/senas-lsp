@@ -1,5 +1,6 @@
 import defaults from './lsp-letters.json'
 import { FEATURE_IDS } from '../geometry/features'
+import { isPlayableLetter } from '../scoring/evaluate'
 import type { LetterDef, LetterSet } from '../scoring/types'
 
 const STORAGE_KEY = 'senas-lsp:letters'
@@ -17,11 +18,12 @@ function isLetterDef(value: unknown, key?: string): value is LetterDef {
     (key !== undefined && key !== value.letter) ||
     (value.status !== 'borrador' && value.status !== 'calibrada') ||
     typeof value.description !== 'string' ||
-    !Array.isArray(value.constraints)
+    !Array.isArray(value.constraints) ||
+    value.constraints.length === 0
   ) {
     return false
   }
-  return value.constraints.every((constraint: unknown) => {
+  const validConstraints = value.constraints.every((constraint: unknown) => {
     if (!isRecord(constraint)) return false
     return (
       typeof constraint.feature === 'string' &&
@@ -43,6 +45,7 @@ function isLetterDef(value: unknown, key?: string): value is LetterDef {
         typeof constraint.helpAbove === 'string')
     )
   })
+  return validConstraints && isPlayableLetter(value as unknown as LetterDef)
 }
 
 function readOverrides(): LetterSet {
@@ -82,18 +85,26 @@ export function exportLetters(): string {
   return JSON.stringify(loadLetters(), null, 2)
 }
 
-export function importLetters(json: string): void {
+export function importLetters(json: string): number {
   let parsed: unknown
   try {
     parsed = JSON.parse(json)
   } catch {
     throw new Error('El texto no es un JSON válido.')
   }
-  if (
-    !isRecord(parsed) ||
-    !Object.entries(parsed).every(([key, value]) => isLetterDef(value, key))
-  ) {
+  if (!isRecord(parsed)) {
     throw new Error('El JSON debe tener letras válidas con sus condiciones.')
   }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed))
+  const entries = Object.entries(parsed)
+  if (!entries.length) {
+    throw new Error('El archivo no tiene ninguna letra.')
+  }
+  if (!entries.every(([key, value]) => isLetterDef(value, key))) {
+    throw new Error('El JSON debe tener letras válidas con sus condiciones.')
+  }
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({ ...readOverrides(), ...parsed }),
+  )
+  return entries.length
 }

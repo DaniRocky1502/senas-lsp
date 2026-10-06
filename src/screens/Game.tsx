@@ -9,7 +9,12 @@ import { evaluateLetter } from '../scoring/evaluate'
 import { AcceptanceTracker, ScoreAnimator } from '../scoring/stability'
 import type { LetterSet } from '../scoring/types'
 import { LEVELS, playableWords, type Level } from '../game/levels'
-import { letterPoints, saveLevelProgress, wordStars } from '../game/scoring'
+import {
+  levelStars,
+  letterPoints,
+  saveLevelProgress,
+  wordStars,
+} from '../game/scoring'
 
 type LetterResult = { skipped: boolean; points: number }
 
@@ -30,6 +35,7 @@ export function Game({
   const [score, setScore] = useState(0)
   const [tip, setTip] = useState<string | null>('Muestra tu mano a la cámara')
   const [results, setResults] = useState<LetterResult[]>([])
+  const [allResults, setAllResults] = useState<LetterResult[]>([])
   const [wordScore, setWordScore] = useState(0)
   const [completedStars, setCompletedStars] = useState(0)
   const [completedPoints, setCompletedPoints] = useState(0)
@@ -56,6 +62,7 @@ export function Game({
     const points = letterPoints((performance.now() - letterStartedAt.current) / 1000, skipped)
     const nextResults = [...results, { skipped, points }]
     setResults(nextResults)
+    setAllResults((current) => [...current, { skipped, points }])
     setWordScore((current) => current + points)
     if (letterIndex + 1 < word.length) {
       window.setTimeout(() => {
@@ -97,7 +104,7 @@ export function Game({
       setPhase('playing')
       return
     }
-    saveLevelProgress(level.id, completedStars, completedPoints)
+    saveLevelProgress(level.id, levelStars(allResults), completedPoints)
     setPhase('levelDone')
   }
 
@@ -107,7 +114,7 @@ export function Game({
         <span className="finish-emoji" aria-hidden="true">🏆</span>
         <p className="eyebrow">¡Terminaste {level.name}!</p>
         <h1>¡Lo lograste!</h1>
-        <Stars count={Math.min(3, completedStars)} />
+        <Stars count={levelStars(allResults)} />
         <p>¡Sumaste {completedStars} estrellas y {completedPoints} puntos!</p>
         <button className="button button-primary" onClick={onHome}>Volver al inicio</button>
       </main>

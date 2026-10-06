@@ -8,6 +8,14 @@ import type { Evaluation, LetterDef } from './types'
 
 export const MIN_HAND_SIZE = 0.08
 
+export function isPlayableLetter(def: LetterDef | undefined): boolean {
+  return Boolean(
+    def &&
+      def.constraints.length > 0 &&
+      def.constraints.some((constraint) => (constraint.weight ?? 1) > 0),
+  )
+}
+
 function angleDistance(a: number, b: number): number {
   return Math.abs(((a - b + 540) % 360) - 180)
 }
@@ -107,12 +115,15 @@ export function evaluateLetter(
   const failedRequired = perConstraint.find(
     (result) => result.constraint.required && result.score < 0.5,
   )
-  const worst = perConstraint
-    .filter((result) => result.score < 1)
+  const tipCandidate = perConstraint
+    .filter(
+      (result) =>
+        result.score < 1 && (result.constraint.weight ?? 1) > 0,
+    )
     .sort(
       (first, second) =>
-        first.score * (first.constraint.weight ?? 1) -
-        second.score * (second.constraint.weight ?? 1),
+        (1 - second.score) * (second.constraint.weight ?? 1) -
+        (1 - first.score) * (first.constraint.weight ?? 1),
     )[0]
   const tip = failedRequired
     ? helpFor(
@@ -122,13 +133,13 @@ export function evaluateLetter(
           ? failedRequired.constraint.helpBelow
           : failedRequired.constraint.helpAbove,
       )
-    : worst
+    : tipCandidate
       ? helpFor(
-          worst.constraint.feature,
-          worst.direction as 'below' | 'above',
-          worst.direction === 'below'
-            ? worst.constraint.helpBelow
-            : worst.constraint.helpAbove,
+          tipCandidate.constraint.feature,
+          tipCandidate.direction as 'below' | 'above',
+          tipCandidate.direction === 'below'
+            ? tipCandidate.constraint.helpBelow
+            : tipCandidate.constraint.helpAbove,
         )
       : null
 

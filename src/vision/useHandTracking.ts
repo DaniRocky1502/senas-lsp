@@ -118,6 +118,10 @@ export function useHandTracking(
         animationFrame = requestAnimationFrame(detect)
       } catch (error) {
         if (cancelled) return
+        if (stream) {
+          stream.getTracks().forEach((track) => track.stop())
+          if (videoRef.current) videoRef.current.srcObject = null
+        }
         if (
           error instanceof DOMException &&
           (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError')

@@ -118,6 +118,22 @@ export function Calibration({
     setSelected((current) =>
       checked ? [...current, feature] : current.filter((item) => item !== feature),
     )
+    if (samples.current.length < 10 || !constraints.length) return
+    if (checked) {
+      if (constraints.some((constraint) => constraint.feature === feature)) return
+      const proposal = proposeConstraints(samples.current, [feature])[0]
+      if (proposal) {
+        setConstraints((current) =>
+          current.some((constraint) => constraint.feature === feature)
+            ? current
+            : [...current, { ...proposal, required: feature === 'hand.pointing' }],
+        )
+      }
+    } else {
+      setConstraints((current) =>
+        current.filter((constraint) => constraint.feature !== feature),
+      )
+    }
   }
 
   function updateConstraint(index: number, change: Partial<Constraint>) {
@@ -165,9 +181,9 @@ export function Calibration({
   async function handleImport(file: File | undefined) {
     if (!file) return
     try {
-      importLetters(await file.text())
+      const count = importLetters(await file.text())
       onLettersChanged(loadLetters())
-      setMessage('¡Importamos las letras!')
+      setMessage(`¡Importamos ${count} letras!`)
       setMessageError(false)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'No pudimos importar el archivo.')
