@@ -32,6 +32,13 @@ describe('almacenamiento local de letras', () => {
     expect(Object.keys(exported).length).toBeGreaterThan(1)
   })
 
+  it('importa y carga la letra Ñ', () => {
+    const enye = { ...originalLetter, letter: 'Ñ' }
+    importLetters(JSON.stringify({ 'Ñ': enye }))
+
+    expect(loadLetters()['Ñ']).toEqual(enye)
+  })
+
   it('explica cuándo el archivo importado no tiene letras válidas', () => {
     expect(() => importLetters('no es json')).toThrow('El texto no es un JSON válido')
     expect(() => importLetters(JSON.stringify({ A: { ...originalLetter, letter: 'B' } }))).toThrow(

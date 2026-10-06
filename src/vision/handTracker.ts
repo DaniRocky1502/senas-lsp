@@ -5,7 +5,19 @@ const MODEL_URL =
 const WASM_URL =
   'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.0.1/wasm'
 
-export async function createHandTracker(): Promise<HandLandmarker> {
+let trackerPromise: Promise<HandLandmarker> | null = null
+
+export function createHandTracker(): Promise<HandLandmarker> {
+  if (!trackerPromise) {
+    trackerPromise = createHandTrackerInstance().catch((error: unknown) => {
+      trackerPromise = null
+      throw error
+    })
+  }
+  return trackerPromise
+}
+
+async function createHandTrackerInstance(): Promise<HandLandmarker> {
   const vision = await FilesetResolver.forVisionTasks(WASM_URL)
   const options = {
     baseOptions: { modelAssetPath: MODEL_URL, delegate: 'GPU' as const },

@@ -13,7 +13,7 @@ function isLetterDef(value: unknown, key?: string): value is LetterDef {
   if (!isRecord(value)) return false
   if (
     typeof value.letter !== 'string' ||
-    !/^[A-Z]{1,2}$/.test(value.letter) ||
+    !/^[A-ZÑ]{1,2}$/.test(value.letter) ||
     (key !== undefined && key !== value.letter) ||
     (value.status !== 'borrador' && value.status !== 'calibrada') ||
     typeof value.description !== 'string' ||

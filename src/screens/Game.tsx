@@ -139,37 +139,35 @@ export function Game({
         ))}
       </div>
 
-      {phase === 'wordDone' ? (
-        <section className="word-finish-card">
-          <Celebration>¡Lo lograste!</Celebration>
-          <Stars count={wordStars(results)} />
-          <p>¡Terminaste la palabra {word}!</p>
-          <button className="button button-primary" onClick={nextWord}>
-            {wordIndex + 1 < words.length ? 'Siguiente palabra' : 'Ver resumen'}
-          </button>
-        </section>
-      ) : (
-        <>
-          <section className="target-card">
-            <div className="target-letter">{targetLetter}</div>
-            <div>
-              <span className={`status-tag ${definition.status}`}>{definition.status}</span>
-              <p>{definition.description}</p>
-            </div>
+      <section className="target-card" hidden={phase === 'wordDone'}>
+        <div className="target-letter">{targetLetter}</div>
+        <div>
+          <span className={`status-tag ${definition.status}`}>{definition.status}</span>
+          <p>{definition.description}</p>
+        </div>
+      </section>
+      <section className="play-area">
+        <div className="camera-score">
+          <CameraView onFrame={handleFrame} />
+          <ProgressRing score={score} label="Puntaje de la seña" />
+        </div>
+        {phase === 'wordDone' ? (
+          <section className="word-finish-card">
+            <Celebration>¡Lo lograste!</Celebration>
+            <Stars count={wordStars(results)} />
+            <p>¡Terminaste la palabra {word}!</p>
+            <button className="button button-primary" onClick={nextWord}>
+              {wordIndex + 1 < words.length ? 'Siguiente palabra' : 'Ver resumen'}
+            </button>
           </section>
-          <section className="play-area">
-            <div className="camera-score">
-              <CameraView onFrame={handleFrame} />
-              <ProgressRing score={score} label="Puntaje de la seña" />
-            </div>
-            <div className="game-guidance">
-              <HelpBubble tip={tip} />
-              <p className="gentle-reminder">No hay apuro. ¡Tú puedes!</p>
-              <button className="button button-skip" onClick={() => finishLetter(true)}>Saltar letra</button>
-            </div>
-          </section>
-        </>
-      )}
+        ) : (
+          <div className="game-guidance">
+            <HelpBubble tip={tip} />
+            <p className="gentle-reminder">No hay apuro. ¡Tú puedes!</p>
+            <button className="button button-skip" onClick={() => finishLetter(true)}>Saltar letra</button>
+          </div>
+        )}
+      </section>
     </main>
   )
 }

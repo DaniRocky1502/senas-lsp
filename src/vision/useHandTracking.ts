@@ -71,10 +71,7 @@ export function useHandTracking(
       try {
         setStatus('loadingModel')
         tracker = await createHandTracker()
-        if (cancelled) {
-          tracker.close()
-          return
-        }
+        if (cancelled) return
         setStatus('requestingCamera')
         stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: 'user' },
@@ -138,7 +135,6 @@ export function useHandTracking(
       cancelled = true
       cancelAnimationFrame(animationFrame)
       stream?.getTracks().forEach((track) => track.stop())
-      tracker?.close()
     }
   }, [active, videoRef])
 

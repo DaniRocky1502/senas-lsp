@@ -4,7 +4,7 @@
     "status": "borrador",
     "description": "Puño cerrado con el pulgar al costado (BORRADOR: verificar con la guía MINEDU)",
     "constraints": [
-      { "feature": "curl.thumb", "min": 0, "max": 110, "required": true },
+      { "feature": "curl.thumb", "min": 120, "max": 180 },
       { "feature": "curl.index", "min": 0, "max": 100, "required": true },
       { "feature": "curl.middle", "min": 0, "max": 100, "required": true },
       { "feature": "curl.ring", "min": 0, "max": 100, "required": true },

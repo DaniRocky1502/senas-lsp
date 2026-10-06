@@ -23,7 +23,7 @@ const DEFAULT_SELECTED: FeatureId[] = [
 ]
 
 function displayValue(feature: FeatureId, value: number): string {
-  return FEATURES[feature].kind === 'angle' ? value.toFixed(0) : value.toFixed(2)
+  return FEATURES[feature].unit === '°' ? value.toFixed(0) : value.toFixed(2)
 }
 
 export function Calibration({
@@ -129,7 +129,7 @@ export function Calibration({
   }
 
   function handleSave() {
-    if (!/^[A-Z]{1,2}$/.test(letter) || !description.trim() || !constraints.length) {
+    if (!/^[A-ZÑ]{1,2}$/.test(letter) || !description.trim() || !constraints.length) {
       setMessage('Escribe una o dos letras, una descripción y graba las condiciones.')
       setMessageError(true)
       return
@@ -244,7 +244,7 @@ export function Calibration({
             <input
               value={letter}
               maxLength={2}
-              onChange={(event) => setLetter(event.target.value.toUpperCase().replace(/[^A-Z]/g, ''))}
+              onChange={(event) => setLetter(event.target.value.toUpperCase().replace(/[^A-ZÑ]/g, ''))}
               placeholder="A"
             />
           </label>
