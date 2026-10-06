@@ -1,0 +1,122 @@
+{
+  "A": {
+    "letter": "A",
+    "status": "borrador",
+    "description": "Puño cerrado con el pulgar al costado (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 0, "max": 110, "required": true },
+      { "feature": "curl.index", "min": 0, "max": 100, "required": true },
+      { "feature": "curl.middle", "min": 0, "max": 100, "required": true },
+      { "feature": "curl.ring", "min": 0, "max": 100, "required": true },
+      { "feature": "curl.pinky", "min": 0, "max": 100, "required": true },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  },
+  "B": {
+    "letter": "B",
+    "status": "borrador",
+    "description": "Mano abierta con el pulgar cruzado sobre la palma (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 20, "max": 130 },
+      { "feature": "curl.index", "min": 150, "max": 180, "required": true },
+      { "feature": "curl.middle", "min": 150, "max": 180, "required": true },
+      { "feature": "curl.ring", "min": 150, "max": 180, "required": true },
+      { "feature": "curl.pinky", "min": 150, "max": 180, "required": true },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  },
+  "E": {
+    "letter": "E",
+    "status": "borrador",
+    "description": "Junta los dedos doblados hacia la palma (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 0, "max": 120 },
+      { "feature": "curl.index", "min": 20, "max": 115, "required": true },
+      { "feature": "curl.middle", "min": 20, "max": 115, "required": true },
+      { "feature": "curl.ring", "min": 20, "max": 115, "required": true },
+      { "feature": "curl.pinky", "min": 20, "max": 115, "required": true },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  },
+  "I": {
+    "letter": "I",
+    "status": "borrador",
+    "description": "Deja levantado el dedo chiquito (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 0, "max": 120 },
+      { "feature": "curl.index", "min": 0, "max": 110, "required": true },
+      { "feature": "curl.middle", "min": 0, "max": 110, "required": true },
+      { "feature": "curl.ring", "min": 0, "max": 110, "required": true },
+      { "feature": "curl.pinky", "min": 150, "max": 180, "required": true },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  },
+  "L": {
+    "letter": "L",
+    "status": "borrador",
+    "description": "Levanta el índice y abre el pulgar (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 140, "max": 180, "required": true },
+      { "feature": "curl.index", "min": 150, "max": 180, "required": true },
+      { "feature": "curl.middle", "min": 0, "max": 110 },
+      { "feature": "curl.ring", "min": 0, "max": 110 },
+      { "feature": "curl.pinky", "min": 0, "max": 110 },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  },
+  "O": {
+    "letter": "O",
+    "status": "borrador",
+    "description": "Forma un círculo juntando el pulgar y el índice (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 35, "max": 160 },
+      { "feature": "curl.index", "min": 35, "max": 160, "required": true },
+      { "feature": "curl.middle", "min": 35, "max": 160, "required": true },
+      { "feature": "curl.ring", "min": 35, "max": 160, "required": true },
+      { "feature": "curl.pinky", "min": 35, "max": 160, "required": true },
+      { "feature": "touch.thumbIndex", "min": 0, "max": 0.5, "required": true },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  },
+  "U": {
+    "letter": "U",
+    "status": "borrador",
+    "description": "Levanta juntos el índice y el dedo del medio (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 0, "max": 120 },
+      { "feature": "curl.index", "min": 150, "max": 180, "required": true },
+      { "feature": "curl.middle", "min": 150, "max": 180, "required": true },
+      { "feature": "curl.ring", "min": 0, "max": 110, "required": true },
+      { "feature": "curl.pinky", "min": 0, "max": 110, "required": true },
+      { "feature": "spread.indexMiddle", "min": 0, "max": 0.35, "required": true },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  },
+  "V": {
+    "letter": "V",
+    "status": "borrador",
+    "description": "Levanta el índice y el dedo del medio separados (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 0, "max": 120 },
+      { "feature": "curl.index", "min": 150, "max": 180, "required": true },
+      { "feature": "curl.middle", "min": 150, "max": 180, "required": true },
+      { "feature": "curl.ring", "min": 0, "max": 110, "required": true },
+      { "feature": "curl.pinky", "min": 0, "max": 110, "required": true },
+      { "feature": "spread.indexMiddle", "min": 0.5, "max": 2, "required": true },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  },
+  "Y": {
+    "letter": "Y",
+    "status": "borrador",
+    "description": "Abre el pulgar y el dedo chiquito (BORRADOR: verificar con la guía MINEDU)",
+    "constraints": [
+      { "feature": "curl.thumb", "min": 140, "max": 180, "required": true },
+      { "feature": "curl.index", "min": 0, "max": 110 },
+      { "feature": "curl.middle", "min": 0, "max": 110 },
+      { "feature": "curl.ring", "min": 0, "max": 110 },
+      { "feature": "curl.pinky", "min": 140, "max": 180, "required": true },
+      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+    ]
+  }
+}

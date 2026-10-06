@@ -1,1 +1,72 @@
-# senas-lsp
+# Señas LSP
+
+Un juego web para aprender y practicar letras estáticas de la Lengua de Señas Peruana (LSP), paso a paso y jugando.
+
+> **Importante:** las letras que vienen en el juego son borradores para probar la aplicación. No se han verificado con una guía oficial de LSP. Consulta y calibra cada seña con una persona conocedora y con la guía del [MINEDU](https://repositorio.minedu.gob.pe/handle/20.500.12799/5545) antes de usarla para enseñar.
+
+## Privacidad
+
+La cámara se usa solo en este dispositivo. No grabamos ni enviamos tu video a ningún lado. La detección de manos y el cálculo de las señas ocurren en el navegador; no hay servidor de la aplicación.
+
+Al abrir la página se descargan desde internet el modelo de detección de Google y los archivos WebAssembly de MediaPipe (desde Google Cloud y jsDelivr). Esos archivos son el modelo, no el video de la cámara. Para usar la cámara, permite el acceso cuando el navegador lo pregunte; los navegadores requieren una conexión segura o `localhost`.
+
+## Empezar
+
+Necesitas una versión reciente de Node.js y npm. Desde la carpeta del proyecto:
+
+```sh
+npm install
+npm run dev
+```
+
+Abre [http://localhost:5173](http://localhost:5173) y permite el uso de la cámara. El juego también puede compilarse para publicarlo como sitio estático:
+
+```sh
+npm run build
+```
+
+## Calibrar una letra
+
+La calibración está pensada para profes y personas que conocen LSP. Para crear una versión local de una seña:
+
+1. Consulta una fuente confiable, como la [guía de LSP del MINEDU](https://repositorio.minedu.gob.pe/handle/20.500.12799/5545), y confirma la seña con una persona conocedora.
+2. Entra en **Calibración (para profes)** y permite el acceso a la cámara.
+3. Escribe la letra y una descripción fácil de entender.
+4. Haz la seña y pulsa **Grabar 3 segundos**. Mantén la mano quieta durante la cuenta regresiva y la grabación.
+5. Elige las características que describen esa letra. Revisa y ajusta los rangos, los consejos y las condiciones obligatorias.
+6. Pulsa **Guardar en este navegador**. La nueva letra queda guardada solo en el almacenamiento local de este navegador.
+
+Desde esa pantalla también puedes copiar el JSON de todas las letras, importar un archivo JSON o borrar tu versión de una letra. **Borrador** indica que la seña y sus condiciones aún no se han confirmado. No uses una letra de borrador como referencia oficial.
+
+## Letras y niveles
+
+El conjunto inicial trae A, B, E, I, L, O, U, V e Y. Cada descripción termina con **(BORRADOR: verificar con la guía MINEDU)**. Los niveles muestran las palabras que se pueden formar con las letras disponibles; una palabra con letras aún no calibradas no se puede jugar.
+
+Las calibraciones y el progreso (estrellas y mejor puntaje por nivel) se guardan en el navegador. No se envían a ningún servicio.
+
+## Cómo funciona el puntaje
+
+La cámara compara varias características de la mano con los rangos de la letra elegida y muestra qué tan parecida es la seña. Para aceptar una letra, el parecido debe mantenerse durante un momento. Cada letra acertada da hasta 10 puntos; el tiempo solo baja un poco los puntos y nunca los reduce por debajo de 3. Saltar una letra no da puntos. Al completar una palabra se reciben 3 estrellas si no se saltó ninguna, 2 si se saltó una y 1 si se saltaron varias. No hay cuenta regresiva ni castigo por tardar.
+
+## Carpetas principales
+
+- `src/geometry/`: puntos de la mano, normalización y características.
+- `src/scoring/`: condiciones de las letras, comparación y estabilidad.
+- `src/vision/`: cámara y detección local de manos con MediaPipe.
+- `src/letters/`: señas iniciales y almacenamiento/importación local.
+- `src/calibration/`: propuestas de rangos a partir de muestras.
+- `src/game/`: niveles, palabras y puntajes.
+- `src/components/`: piezas compartidas de la interfaz.
+- `src/screens/`: inicio, niveles, juego, práctica y calibración.
+
+## Comandos
+
+```sh
+npm run dev        # iniciar el servidor local
+npm run lint       # revisar estilo y errores comunes
+npm run typecheck  # comprobar los tipos de TypeScript
+npm test           # ejecutar las pruebas de lógica
+npm run build      # comprobar tipos y crear la versión de producción
+```
+
+La idea del juego se inspiró en [fingerspelling.xyz](https://fingerspelling.xyz/). Este proyecto no copia su código.
