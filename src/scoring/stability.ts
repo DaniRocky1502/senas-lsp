@@ -25,7 +25,7 @@ export class AcceptanceTracker {
   private readonly threshold: number
   private readonly holdMs: number
 
-  constructor(threshold = 0.8, holdMs = 500) {
+  constructor(threshold = 0.9, holdMs = 500) {
     this.threshold = threshold
     this.holdMs = holdMs
   }
