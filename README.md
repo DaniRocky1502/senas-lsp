@@ -27,16 +27,15 @@ npm run build
 
 ## Calibrar una letra
 
-La calibración está pensada para profes y personas que conocen LSP. Para crear una versión local de una seña:
+La calibración está pensada para profes y personas que conocen LSP. Para guardar una seña en este navegador:
 
 1. Consulta una fuente confiable, como la [guía de LSP del MINEDU](https://repositorio.minedu.gob.pe/handle/20.500.12799/5545), y confirma la seña con una persona conocedora.
-2. Entra en **Calibración (para profes)** y permite el acceso a la cámara.
-3. Escribe la letra y una descripción fácil de entender.
-4. Haz la seña y pulsa **Grabar 3 segundos**. Mantén la mano quieta durante la cuenta regresiva y la grabación.
-5. Elige las características que describen esa letra. Revisa y ajusta los rangos, los consejos y las condiciones obligatorias.
-6. Pulsa **Guardar en este navegador**. La nueva letra queda guardada solo en el almacenamiento local de este navegador.
+2. Entra en **Calibración rápida** y permite el acceso a la cámara. También puedes abrir directamente `/#calibrar`.
+3. Elige una letra con un botón o presiona su tecla.
+4. Cuando aparezca la cuenta atrás 3-2-1, prepara la seña. Mantén la mano quieta durante los 3 segundos de grabación.
+5. La letra se guarda sola. La cámara mide únicamente cuánto se doblan los cinco dedos.
 
-Desde esa pantalla también puedes copiar el JSON de todas las letras, importar un archivo JSON o borrar tu versión de una letra. **Borrador** indica que la seña y sus condiciones aún no se han confirmado. No uses una letra de borrador como referencia oficial.
+Desde esa pantalla también puedes copiar el JSON de todas las letras para compartirlo, importar un archivo JSON o borrar tu versión de una letra. **Borrador** indica que la seña aún no se ha confirmado; no la uses como referencia oficial.
 
 ## Letras y niveles
 
@@ -46,7 +45,7 @@ Las calibraciones y el progreso (estrellas y mejor puntaje por nivel) se guardan
 
 ## Cómo funciona el puntaje
 
-La cámara compara varias características de la mano con los rangos de la letra elegida y muestra qué tan parecida es la seña. Para aceptar una letra, el parecido debe mantenerse durante un momento. Cada letra acertada da hasta 10 puntos; el tiempo solo baja un poco los puntos y nunca los reduce por debajo de 3. Saltar una letra no da puntos. Al completar una palabra se reciben 3 estrellas si no se saltó ninguna, 2 si se saltó una y 1 si se saltaron varias. No hay cuenta regresiva ni castigo por tardar.
+La cámara compara varias características de la mano con los rangos de la letra elegida y muestra qué tan parecida es la seña. Para aceptar una letra, el parecido debe ser de al menos 90% y mantenerse durante 2 segundos seguidos. Cada letra acertada da hasta 10 puntos; el tiempo solo baja un poco los puntos y nunca los reduce por debajo de 3. Saltar una letra no da puntos. Al completar una palabra se reciben 3 estrellas si no se saltó ninguna, 2 si se saltó una y 1 si se saltaron varias. No hay cuenta regresiva ni castigo por tardar.
 
 ## Carpetas principales
 

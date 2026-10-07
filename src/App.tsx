@@ -10,7 +10,9 @@ import { Calibration } from './screens/Calibration'
 type Screen = 'home' | 'levels' | 'game' | 'practice' | 'calibration'
 
 function App() {
-  const [screen, setScreen] = useState<Screen>('home')
+  const [screen, setScreen] = useState<Screen>(
+    window.location.hash === '#calibrar' ? 'calibration' : 'home',
+  )
   const [levelId, setLevelId] = useState<string>('vocales')
   const [letters, setLetters] = useState<LetterSet>(() => loadLetters())
 

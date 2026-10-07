@@ -33,6 +33,7 @@ export function Game({
   const [letterIndex, setLetterIndex] = useState(0)
   const [phase, setPhase] = useState<'playing' | 'wordDone' | 'levelDone'>('playing')
   const [score, setScore] = useState(0)
+  const [holdProgress, setHoldProgress] = useState(0)
   const [tip, setTip] = useState<string | null>('Muestra tu mano a la cámara')
   const [results, setResults] = useState<LetterResult[]>([])
   const [allResults, setAllResults] = useState<LetterResult[]>([])
@@ -59,6 +60,7 @@ export function Game({
   function finishLetter(skipped: boolean) {
     if (locked.current || phase !== 'playing') return
     locked.current = true
+    setHoldProgress(0)
     const points = letterPoints((performance.now() - letterStartedAt.current) / 1000, skipped)
     const nextResults = [...results, { skipped, points }]
     setResults(nextResults)
@@ -90,7 +92,9 @@ export function Game({
       setTip(null)
       lastTipAt.current = now
     }
-    if (acceptance.current.update(evaluation.score, now)) finishLetter(false)
+    const accepted = acceptance.current.update(evaluation.score, now)
+    setHoldProgress(acceptance.current.holdProgress(now))
+    if (accepted) finishLetter(false)
   }
 
   function nextWord() {
@@ -157,6 +161,21 @@ export function Game({
         <div className="camera-score">
           <CameraView onFrame={handleFrame} />
           <ProgressRing score={score} label="Puntaje de la seña" />
+          {holdProgress > 0 && phase === 'playing' && (
+            <div
+              className="hold-progress"
+              role="progressbar"
+              aria-label="¡Mantén la seña!"
+              aria-valuenow={Math.round(holdProgress * 100)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
+              <strong>¡Mantén la seña!</strong>
+              <div className="hold-progress-track">
+                <span style={{ width: `${holdProgress * 100}%` }} />
+              </div>
+            </div>
+          )}
         </div>
         {phase === 'wordDone' ? (
           <section className="word-finish-card">

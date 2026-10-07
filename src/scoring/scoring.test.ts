@@ -138,6 +138,27 @@ describe('estabilidad en el tiempo', () => {
     expect(tracker.update(0.9, 1300)).toBe(false)
   })
 
+  it('por defecto pide 90% durante dos segundos', () => {
+    const tracker = new AcceptanceTracker()
+
+    expect(tracker.update(0.95, 0)).toBe(false)
+    expect(tracker.update(0.95, 1999)).toBe(false)
+    expect(tracker.update(0.95, 2000)).toBe(true)
+  })
+
+  it('no acepta menos de 90% y reinicia el progreso al bajar del umbral', () => {
+    const tracker = new AcceptanceTracker()
+
+    expect(tracker.holdProgress(0)).toBe(0)
+    expect(tracker.update(0.89, 0)).toBe(false)
+    expect(tracker.update(0.89, 3000)).toBe(false)
+    expect(tracker.holdProgress(3000)).toBe(0)
+    expect(tracker.update(0.95, 4000)).toBe(false)
+    expect(tracker.holdProgress(5000)).toBe(0.5)
+    expect(tracker.update(0.89, 5001)).toBe(false)
+    expect(tracker.holdProgress(5001)).toBe(0)
+  })
+
   it('suaviza el puntaje usando marcas de tiempo explícitas', () => {
     const animator = new ScoreAnimator()
 

@@ -3,7 +3,7 @@ import {
   FEATURE_IDS,
   type FeatureId,
 } from '../geometry/features'
-import type { Constraint } from '../scoring/types'
+import type { Constraint, LetterDef } from '../scoring/types'
 
 function percentile(values: number[], fraction: number): number {
   const sorted = [...values].sort((first, second) => first - second)
@@ -59,4 +59,27 @@ export function proposeConstraints(
     }
     return { feature, min, max }
   })
+}
+
+export const FINGER_FEATURES: FeatureId[] = [
+  'curl.thumb',
+  'curl.index',
+  'curl.middle',
+  'curl.ring',
+  'curl.pinky',
+]
+
+export function buildFingerLetter(
+  letter: string,
+  samples: Record<FeatureId, number>[],
+  previous?: LetterDef,
+): LetterDef {
+  return {
+    letter,
+    status: 'calibrada',
+    description: (previous?.description ?? '')
+      .replace(/\s*\(BORRADOR[^)]*\)/, '')
+      .trim(),
+    constraints: proposeConstraints(samples, FINGER_FEATURES),
+  }
 }

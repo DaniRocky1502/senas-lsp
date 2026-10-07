@@ -25,7 +25,7 @@ export class AcceptanceTracker {
   private readonly threshold: number
   private readonly holdMs: number
 
-  constructor(threshold = 0.9, holdMs = 500) {
+  constructor(threshold = 0.9, holdMs = 2000) {
     this.threshold = threshold
     this.holdMs = holdMs
   }
@@ -40,6 +40,11 @@ export class AcceptanceTracker {
     if (nowMs - this.startedAt < this.holdMs) return false
     this.accepted = true
     return true
+  }
+
+  holdProgress(nowMs: number): number {
+    if (this.startedAt === null) return 0
+    return Math.min(1, (nowMs - this.startedAt) / this.holdMs)
   }
 
   reset(): void {
