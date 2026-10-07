@@ -2,7 +2,7 @@
 
 Un juego web para aprender y practicar letras estáticas de la Lengua de Señas Peruana (LSP), paso a paso y jugando.
 
-> **Importante:** las letras que vienen en el juego son borradores para probar la aplicación. No se han verificado con una guía oficial de LSP. Consulta y calibra cada seña con una persona conocedora y con la guía del [MINEDU](https://repositorio.minedu.gob.pe/handle/20.500.12799/5545) antes de usarla para enseñar.
+> **Importante:** el juego incluye una primera calibración aproximada de letras estáticas, hecha con la cámara midiendo solo la flexión de los dedos. Aún no se ha validado con una persona señante de LSP ni con una guía oficial. Consulta y confirma cada seña con una persona conocedora y con la guía del [MINEDU](https://repositorio.minedu.gob.pe/handle/20.500.12799/5545) antes de usarla para enseñar.
 
 ## Privacidad
 
@@ -39,7 +39,7 @@ Desde esa pantalla también puedes copiar el JSON de todas las letras para compa
 
 ## Letras y niveles
 
-El conjunto inicial trae A, B, E, I, L, O, U, V e Y. Cada descripción termina con **(BORRADOR: verificar con la guía MINEDU)**. Los niveles muestran las palabras que se pueden formar con las letras disponibles; una palabra con letras aún no calibradas no se puede jugar.
+El conjunto inicial trae las 24 letras estáticas A, B, C, D, E, F, G, H, I, K, L, M, N, O, P, Q, R, S, T, U, V, W, X e Y. Se calibraron con la cámara usando únicamente la flexión de los dedos; sus medidas son aproximadas y aún no se validaron con una persona señante de LSP ni con la guía del MINEDU. J y Z se dejan fuera porque requieren movimiento. Los niveles muestran las palabras que se pueden formar con las letras disponibles; una palabra con letras aún no calibradas no se puede jugar.
 
 Las calibraciones y el progreso (estrellas y mejor puntaje por nivel) se guardan en el navegador. No se envían a ningún servicio.
 

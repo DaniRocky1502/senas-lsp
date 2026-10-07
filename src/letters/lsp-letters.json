@@ -1,122 +1,770 @@
 {
   "A": {
     "letter": "A",
-    "status": "borrador",
-    "description": "Puño cerrado con el pulgar al costado (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Puño cerrado con el pulgar al costado",
     "constraints": [
-      { "feature": "curl.thumb", "min": 120, "max": 180 },
-      { "feature": "curl.index", "min": 0, "max": 100, "required": true },
-      { "feature": "curl.middle", "min": 0, "max": 100, "required": true },
-      { "feature": "curl.ring", "min": 0, "max": 100, "required": true },
-      { "feature": "curl.pinky", "min": 0, "max": 100, "required": true },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 142.4473978120837,
+        "max": 175.41203360538512
+      },
+      {
+        "feature": "curl.index",
+        "min": 17.778669726301395,
+        "max": 49.94060897510869
+      },
+      {
+        "feature": "curl.middle",
+        "min": 15.19483941238305,
+        "max": 46.46438160588977
+      },
+      {
+        "feature": "curl.ring",
+        "min": 9.121611192719612,
+        "max": 40.58446436247374
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 6.756787935158847,
+        "max": 38.21061955078844
+      }
     ]
   },
   "B": {
     "letter": "B",
-    "status": "borrador",
-    "description": "Mano abierta con el pulgar cruzado sobre la palma (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Mano abierta con el pulgar cruzado sobre la palma",
     "constraints": [
-      { "feature": "curl.thumb", "min": 20, "max": 130 },
-      { "feature": "curl.index", "min": 150, "max": 180, "required": true },
-      { "feature": "curl.middle", "min": 150, "max": 180, "required": true },
-      { "feature": "curl.ring", "min": 150, "max": 180, "required": true },
-      { "feature": "curl.pinky", "min": 150, "max": 180, "required": true },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 92.40737475867904,
+        "max": 125.25810063385731
+      },
+      {
+        "feature": "curl.index",
+        "min": 153.5212997198627,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 155.81232915032106,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 157.87611108959973,
+        "max": 180
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 161.1214179434349,
+        "max": 180
+      }
     ]
   },
   "E": {
     "letter": "E",
-    "status": "borrador",
-    "description": "Junta los dedos doblados hacia la palma (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Junta los dedos doblados hacia la palma",
     "constraints": [
-      { "feature": "curl.thumb", "min": 0, "max": 120 },
-      { "feature": "curl.index", "min": 20, "max": 115, "required": true },
-      { "feature": "curl.middle", "min": 20, "max": 115, "required": true },
-      { "feature": "curl.ring", "min": 20, "max": 115, "required": true },
-      { "feature": "curl.pinky", "min": 20, "max": 115, "required": true },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 77.31807546059531,
+        "max": 113.12732076892866
+      },
+      {
+        "feature": "curl.index",
+        "min": 42.23081200663489,
+        "max": 75.45453630220393
+      },
+      {
+        "feature": "curl.middle",
+        "min": 24.548762623479263,
+        "max": 57.68391556715898
+      },
+      {
+        "feature": "curl.ring",
+        "min": 9.888483365322198,
+        "max": 43.558959444509114
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 9.975419613222051,
+        "max": 43.0573357349478
+      }
     ]
   },
   "I": {
     "letter": "I",
-    "status": "borrador",
-    "description": "Deja levantado el dedo chiquito (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Deja levantado el dedo chiquito",
     "constraints": [
-      { "feature": "curl.thumb", "min": 0, "max": 120 },
-      { "feature": "curl.index", "min": 0, "max": 110, "required": true },
-      { "feature": "curl.middle", "min": 0, "max": 110, "required": true },
-      { "feature": "curl.ring", "min": 0, "max": 110, "required": true },
-      { "feature": "curl.pinky", "min": 150, "max": 180, "required": true },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 92.31851222817508,
+        "max": 126.27348672571652
+      },
+      {
+        "feature": "curl.index",
+        "min": 26.816012953318243,
+        "max": 60.82540274892821
+      },
+      {
+        "feature": "curl.middle",
+        "min": 29.17664771893407,
+        "max": 64.32512102158066
+      },
+      {
+        "feature": "curl.ring",
+        "min": 34.922738368626526,
+        "max": 69.27275243524693
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 145.9964191395842,
+        "max": 178.158384389452
+      }
     ]
   },
   "L": {
     "letter": "L",
-    "status": "borrador",
-    "description": "Levanta el índice y abre el pulgar (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Levanta el índice y abre el pulgar",
     "constraints": [
-      { "feature": "curl.thumb", "min": 140, "max": 180, "required": true },
-      { "feature": "curl.index", "min": 150, "max": 180, "required": true },
-      { "feature": "curl.middle", "min": 0, "max": 110 },
-      { "feature": "curl.ring", "min": 0, "max": 110 },
-      { "feature": "curl.pinky", "min": 0, "max": 110 },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 160.54888267905153,
+        "max": 180
+      },
+      {
+        "feature": "curl.index",
+        "min": 155.70362362371395,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 34.127569018572885,
+        "max": 77.67795013060953
+      },
+      {
+        "feature": "curl.ring",
+        "min": 27.498963738458684,
+        "max": 74.36732519859395
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 25.077604656356193,
+        "max": 81.53814706791378
+      }
     ]
   },
   "O": {
     "letter": "O",
-    "status": "borrador",
-    "description": "Forma un círculo juntando el pulgar y el índice (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Forma un círculo juntando el pulgar y el índice",
     "constraints": [
-      { "feature": "curl.thumb", "min": 35, "max": 160 },
-      { "feature": "curl.index", "min": 35, "max": 160, "required": true },
-      { "feature": "curl.middle", "min": 35, "max": 160, "required": true },
-      { "feature": "curl.ring", "min": 35, "max": 160, "required": true },
-      { "feature": "curl.pinky", "min": 35, "max": 160, "required": true },
-      { "feature": "touch.thumbIndex", "min": 0, "max": 0.5, "required": true },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 145.6403829531154,
+        "max": 178.58471711040752
+      },
+      {
+        "feature": "curl.index",
+        "min": 73.27545596076104,
+        "max": 117.6312935249857
+      },
+      {
+        "feature": "curl.middle",
+        "min": 63.984045075591865,
+        "max": 103.95942236410883
+      },
+      {
+        "feature": "curl.ring",
+        "min": 66.33527140154698,
+        "max": 103.49207363812856
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 79.02154955084097,
+        "max": 114.89340206947195
+      }
     ]
   },
   "U": {
     "letter": "U",
-    "status": "borrador",
-    "description": "Levanta juntos el índice y el dedo del medio (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Levanta juntos el índice y el dedo del medio",
     "constraints": [
-      { "feature": "curl.thumb", "min": 0, "max": 120 },
-      { "feature": "curl.index", "min": 150, "max": 180, "required": true },
-      { "feature": "curl.middle", "min": 150, "max": 180, "required": true },
-      { "feature": "curl.ring", "min": 0, "max": 110, "required": true },
-      { "feature": "curl.pinky", "min": 0, "max": 110, "required": true },
-      { "feature": "spread.indexMiddle", "min": 0, "max": 0.35, "required": true },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 98.55185499403464,
+        "max": 133.1426539847283
+      },
+      {
+        "feature": "curl.index",
+        "min": 158.91320271735495,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 50.39566684370432,
+        "max": 85.87238602142551
+      },
+      {
+        "feature": "curl.ring",
+        "min": 32.8339753271798,
+        "max": 69.58347389919975
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 141.5339234837143,
+        "max": 173.55389055901608
+      }
     ]
   },
   "V": {
     "letter": "V",
-    "status": "borrador",
-    "description": "Levanta el índice y el dedo del medio separados (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Levanta el índice y el dedo del medio separados",
     "constraints": [
-      { "feature": "curl.thumb", "min": 0, "max": 120 },
-      { "feature": "curl.index", "min": 150, "max": 180, "required": true },
-      { "feature": "curl.middle", "min": 150, "max": 180, "required": true },
-      { "feature": "curl.ring", "min": 0, "max": 110, "required": true },
-      { "feature": "curl.pinky", "min": 0, "max": 110, "required": true },
-      { "feature": "spread.indexMiddle", "min": 0.5, "max": 2, "required": true },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 91.81382775375562,
+        "max": 137.0775781262996
+      },
+      {
+        "feature": "curl.index",
+        "min": 158.196897381851,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 155.9711137980416,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 44.98877616887644,
+        "max": 80.59712353179522
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 45.974662723565174,
+        "max": 89.73835739727681
+      }
     ]
   },
   "Y": {
     "letter": "Y",
-    "status": "borrador",
-    "description": "Abre el pulgar y el dedo chiquito (BORRADOR: verificar con la guía MINEDU)",
+    "status": "calibrada",
+    "description": "Abre el pulgar y el dedo chiquito",
     "constraints": [
-      { "feature": "curl.thumb", "min": 140, "max": 180, "required": true },
-      { "feature": "curl.index", "min": 0, "max": 110 },
-      { "feature": "curl.middle", "min": 0, "max": 110 },
-      { "feature": "curl.ring", "min": 0, "max": 110 },
-      { "feature": "curl.pinky", "min": 140, "max": 180, "required": true },
-      { "feature": "hand.pointing", "min": -35, "max": 35, "required": true }
+      {
+        "feature": "curl.thumb",
+        "min": 157.3412704067179,
+        "max": 180
+      },
+      {
+        "feature": "curl.index",
+        "min": 20.38682155960145,
+        "max": 54.11310876410249
+      },
+      {
+        "feature": "curl.middle",
+        "min": 37.00779267088082,
+        "max": 70.66097265166385
+      },
+      {
+        "feature": "curl.ring",
+        "min": 35.516678462117895,
+        "max": 73.2184656111051
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 140.3666668651245,
+        "max": 174.7191586278546
+      }
+    ]
+  },
+  "C": {
+    "letter": "C",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 154.38378397148466,
+        "max": 180
+      },
+      {
+        "feature": "curl.index",
+        "min": 85.49783262936724,
+        "max": 124.66136765163638
+      },
+      {
+        "feature": "curl.middle",
+        "min": 71.07508497210989,
+        "max": 107.21653178304548
+      },
+      {
+        "feature": "curl.ring",
+        "min": 69.79347707956602,
+        "max": 103.71373699981369
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 92.50551703967335,
+        "max": 126.53575020446739
+      }
+    ]
+  },
+  "D": {
+    "letter": "D",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 137.926001097029,
+        "max": 177.379064492312
+      },
+      {
+        "feature": "curl.index",
+        "min": 161.1355327081302,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 53.66052054106392,
+        "max": 86.22145142594643
+      },
+      {
+        "feature": "curl.ring",
+        "min": 39.45637960108439,
+        "max": 72.2862558907829
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 58.84605508949677,
+        "max": 93.24118191262771
+      }
+    ]
+  },
+  "F": {
+    "letter": "F",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 152.6849978181229,
+        "max": 180
+      },
+      {
+        "feature": "curl.index",
+        "min": 136.44675574525684,
+        "max": 172.21655814809824
+      },
+      {
+        "feature": "curl.middle",
+        "min": 157.5155192412321,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 158.00319218066662,
+        "max": 180
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 150.91610376993,
+        "max": 180
+      }
+    ]
+  },
+  "G": {
+    "letter": "G",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 134.85951600088194,
+        "max": 166.53177361656586
+      },
+      {
+        "feature": "curl.index",
+        "min": 162.4957585546406,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 51.172559187647806,
+        "max": 83.2165090472645
+      },
+      {
+        "feature": "curl.ring",
+        "min": 45.59246954088224,
+        "max": 77.33422276810285
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 45.218019735162294,
+        "max": 77.19974779307496
+      }
+    ]
+  },
+  "H": {
+    "letter": "H",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 122.0708401606885,
+        "max": 153.77504966580906
+      },
+      {
+        "feature": "curl.index",
+        "min": 160.8759460270985,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 163.51889449918662,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 12.94276913325066,
+        "max": 52.64515157050466
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 27.187760500273868,
+        "max": 65.10077715155236
+      }
+    ]
+  },
+  "K": {
+    "letter": "K",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 126.68454952855532,
+        "max": 159.2143781472121
+      },
+      {
+        "feature": "curl.index",
+        "min": 155.7867600601881,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 142.97441218287577,
+        "max": 179.27209859703444
+      },
+      {
+        "feature": "curl.ring",
+        "min": 57.178434900924714,
+        "max": 92.18680386177607
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 61.57577651423625,
+        "max": 98.23802038354927
+      }
+    ]
+  },
+  "M": {
+    "letter": "M",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 120.86351028114865,
+        "max": 160.8283736938787
+      },
+      {
+        "feature": "curl.index",
+        "min": 148.65809994930044,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 145.67612949764293,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 131.97700098691283,
+        "max": 169.5623273042394
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 118.73813280900373,
+        "max": 170.3982799513147
+      }
+    ]
+  },
+  "N": {
+    "letter": "N",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 123.63803461796698,
+        "max": 159.1380897770373
+      },
+      {
+        "feature": "curl.index",
+        "min": 160.07342179459624,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 154.92389104476285,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 19.086709180470315,
+        "max": 54.293527818067446
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 32.02166539951646,
+        "max": 68.86119796807316
+      }
+    ]
+  },
+  "P": {
+    "letter": "P",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 120.56224133695378,
+        "max": 155.17487477941552
+      },
+      {
+        "feature": "curl.index",
+        "min": 124.80483227699489,
+        "max": 169.97500741045178
+      },
+      {
+        "feature": "curl.middle",
+        "min": 144.7351178968969,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 32.15326379603552,
+        "max": 115.89045633869677
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 35.969433574748955,
+        "max": 97.54299447674063
+      }
+    ]
+  },
+  "Q": {
+    "letter": "Q",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 138.78114206256328,
+        "max": 171.3375741990156
+      },
+      {
+        "feature": "curl.index",
+        "min": 159.93205905083826,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 61.65299244837361,
+        "max": 93.7588463904253
+      },
+      {
+        "feature": "curl.ring",
+        "min": 56.62785969562772,
+        "max": 88.74705584889178
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 60.26631761526447,
+        "max": 93.35637867327706
+      }
+    ]
+  },
+  "R": {
+    "letter": "R",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 106.14657447304373,
+        "max": 141.16857458214943
+      },
+      {
+        "feature": "curl.index",
+        "min": 158.74070337124385,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 150.2126408449196,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 42.237673340311865,
+        "max": 79.74403179850937
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 76.1833089513828,
+        "max": 114.22625214246867
+      }
+    ]
+  },
+  "S": {
+    "letter": "S",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 110.85371599654988,
+        "max": 145.14833285683943
+      },
+      {
+        "feature": "curl.index",
+        "min": 48.36942386833202,
+        "max": 84.15973654299222
+      },
+      {
+        "feature": "curl.middle",
+        "min": 33.31919115020857,
+        "max": 71.16065321909433
+      },
+      {
+        "feature": "curl.ring",
+        "min": 45.91663863708052,
+        "max": 84.97178981652596
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 50.53529834887891,
+        "max": 101.47935779674846
+      }
+    ]
+  },
+  "T": {
+    "letter": "T",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 131.84822511780004,
+        "max": 164.08289352651582
+      },
+      {
+        "feature": "curl.index",
+        "min": 45.40615973014695,
+        "max": 96.27438753337157
+      },
+      {
+        "feature": "curl.middle",
+        "min": 19.734513105838914,
+        "max": 52.134799067823984
+      },
+      {
+        "feature": "curl.ring",
+        "min": 23.306630708425523,
+        "max": 56.105975916316524
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 24.079499609997377,
+        "max": 58.75933817977952
+      }
+    ]
+  },
+  "W": {
+    "letter": "W",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 88.69376159714716,
+        "max": 121.33426680360252
+      },
+      {
+        "feature": "curl.index",
+        "min": 158.67569852660466,
+        "max": 180
+      },
+      {
+        "feature": "curl.middle",
+        "min": 156.51534986045178,
+        "max": 180
+      },
+      {
+        "feature": "curl.ring",
+        "min": 153.48113056598783,
+        "max": 180
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 35.286403410145894,
+        "max": 93.43723698762624
+      }
+    ]
+  },
+  "X": {
+    "letter": "X",
+    "status": "calibrada",
+    "description": "",
+    "constraints": [
+      {
+        "feature": "curl.thumb",
+        "min": 133.97068316096033,
+        "max": 166.82134066779912
+      },
+      {
+        "feature": "curl.index",
+        "min": 91.42836750617806,
+        "max": 135.9316813820788
+      },
+      {
+        "feature": "curl.middle",
+        "min": 48.10721731167623,
+        "max": 81.89988656337772
+      },
+      {
+        "feature": "curl.ring",
+        "min": 47.70101846471567,
+        "max": 80.65484289483379
+      },
+      {
+        "feature": "curl.pinky",
+        "min": 47.33176787135791,
+        "max": 80.41437257321098
+      }
     ]
   }
 }

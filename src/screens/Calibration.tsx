@@ -7,7 +7,7 @@ import { evaluateLetter } from '../scoring/evaluate'
 import type { LetterSet } from '../scoring/types'
 import type { TrackedHand } from '../vision/useHandTracking'
 
-const ALPHABET = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
+const ALPHABET = 'ABCDEFGHIKLMNÑOPQRSTUVWXY'
 
 type CaptureStage = 'idle' | 'countdown' | 'recording'
 
