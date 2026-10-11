@@ -1,6 +1,15 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CameraView } from '../components/CameraView'
 import { buildFingerLetter, FINGER_FEATURES } from '../calibration/propose'
+import { findSimilarPairs, separatingFeatures } from '../calibration/analysis'
+import {
+  addAttempt,
+  clearAttempts,
+  loadAttempts,
+  scoreAttempt,
+  summarize,
+  type ConfusionAttempt,
+} from '../calibration/confusion'
 import { FEATURES, type FeatureId } from '../geometry/features'
 import {
   combineImportedLetters,
@@ -33,15 +42,19 @@ export function Calibration({
 }) {
   const [hand, setHand] = useState<TrackedHand | null>(null)
   const [letter, setLetter] = useState('')
+  const [mode, setMode] = useState<'calibrar' | 'probar'>('calibrar')
   const [captureStage, setCaptureStage] = useState<CaptureStage>('idle')
   const [countdown, setCountdown] = useState(3)
   const [sampleCount, setSampleCount] = useState(0)
   const [message, setMessage] = useState<string | null>(null)
   const [messageError, setMessageError] = useState(false)
+  const [attempts, setAttempts] = useState<ConfusionAttempt[]>(loadAttempts)
   const samples = useRef<Record<FeatureId, number>[]>([])
+  const sampleHandSizes = useRef<number[]>([])
   const lettersRef = useRef(letters)
   const onLettersChangedRef = useRef(onLettersChanged)
   const letterRef = useRef('')
+  const modeRef = useRef<'calibrar' | 'probar'>('calibrar')
   const stageRef = useRef<CaptureStage>('idle')
   const captureRef = useRef(false)
   const countdownTimer = useRef<number | null>(null)
@@ -66,14 +79,35 @@ export function Calibration({
     updateCaptureStage('idle')
     const currentLetter = letterRef.current
     try {
-      const definition = buildFingerLetter(
-        currentLetter,
-        samples.current,
-        lettersRef.current[currentLetter],
-      )
-      saveLetter(definition)
-      onLettersChangedRef.current(loadLetters())
-      setMessage(`¡Guardamos la ${currentLetter}! Ahora prueba otra letra.`)
+      if (modeRef.current === 'probar') {
+        const result = scoreAttempt(
+          currentLetter,
+          samples.current,
+          sampleHandSizes.current,
+          lettersRef.current,
+        )
+        addAttempt({
+          target: result.target,
+          recognized: result.recognized,
+          accepted: result.accepted,
+        })
+        setAttempts(loadAttempts())
+        const acceptedLetters = result.accepted.length
+          ? result.accepted.join(', ')
+          : 'ninguna'
+        setMessage(
+          `La app creyó que era ${result.recognized}. Letras que pasaron el 90%: ${acceptedLetters}.`,
+        )
+      } else {
+        const definition = buildFingerLetter(
+          currentLetter,
+          samples.current,
+          lettersRef.current[currentLetter],
+        )
+        saveLetter(definition)
+        onLettersChangedRef.current(loadLetters())
+        setMessage(`¡Guardamos la ${currentLetter}! Ahora prueba otra letra.`)
+      }
       setMessageError(false)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'No pudimos usar esas muestras.')
@@ -88,6 +122,7 @@ export function Calibration({
     if (countdownTimer.current !== null) window.clearInterval(countdownTimer.current)
     if (captureTimer.current !== null) window.clearTimeout(captureTimer.current)
     samples.current = []
+    sampleHandSizes.current = []
     setSampleCount(0)
     captureRef.current = false
     let remaining = 3
@@ -144,6 +179,7 @@ export function Calibration({
     setHand(next)
     if (captureRef.current && next.features) {
       samples.current.push(next.features)
+      sampleHandSizes.current.push(next.handSize)
       setSampleCount(samples.current.length)
     }
   }
@@ -210,12 +246,57 @@ export function Calibration({
   }
 
   function handleDelete() {
-    if (!letter || stageRef.current !== 'idle') return
+    if (!letter || modeRef.current !== 'calibrar' || stageRef.current !== 'idle') return
     deleteLetterOverride(letter)
     onLettersChangedRef.current(loadLetters())
     setMessage(`Borramos tu versión de ${letter}.`)
     setMessageError(false)
   }
+
+  async function handleCopyAttempts() {
+    try {
+      await navigator.clipboard.writeText(JSON.stringify(attempts, null, 2))
+      setMessage('¡Copiamos los resultados de las pruebas!')
+      setMessageError(false)
+    } catch {
+      setMessage('No pudimos copiar. Revisa los permisos del navegador.')
+      setMessageError(true)
+    }
+  }
+
+  function handleClearAttempts() {
+    clearAttempts()
+    setAttempts([])
+    setMessage('Borramos las pruebas de confusión.')
+    setMessageError(false)
+  }
+
+  function changeMode(nextMode: 'calibrar' | 'probar') {
+    modeRef.current = nextMode
+    setMode(nextMode)
+    setMessage(null)
+    setMessageError(false)
+  }
+
+  const confusionRows = useMemo(() => summarize(attempts), [attempts])
+  const similarPairs = useMemo(() => {
+    const pairs = new Map<string, [string, string]>()
+    for (const pair of findSimilarPairs(letters)) {
+      pairs.set(pair.join('\u0000'), pair)
+    }
+    for (const attempt of attempts) {
+      if (attempt.target === attempt.recognized) continue
+      const pair = [attempt.target, attempt.recognized].sort((a, b) =>
+        a.localeCompare(b),
+      ) as [string, string]
+      pairs.set(pair.join('\u0000'), pair)
+    }
+    return [...pairs.values()].sort(
+      (first, second) =>
+        first[0].localeCompare(second[0]) ||
+        first[1].localeCompare(second[1]),
+    )
+  }, [letters, attempts])
 
   const stageMessage =
     captureStage === 'countdown'
@@ -223,7 +304,9 @@ export function Calibration({
       : captureStage === 'recording'
         ? `Grabando ${letter}… ¡mantén la seña!`
         : letter
-          ? 'Lista para la siguiente seña.'
+          ? mode === 'probar'
+            ? 'Lista para probar esta seña.'
+            : 'Lista para la siguiente seña.'
           : 'Elige una letra para empezar.'
 
   return (
@@ -235,7 +318,27 @@ export function Calibration({
       <p className="section-intro">
         Elige una letra (o presiona su tecla), haz la seña y mantenla quieta. Se guarda sola.
       </p>
-      <p className="calibration-hint">Solo medimos cuánto se dobla cada dedo.</p>
+      <p className="calibration-hint">
+        El puntaje usa cuánto se dobla cada dedo. También guardamos otras medidas (pulgar, dirección de los dedos) para separar letras parecidas.
+      </p>
+      <div className="calibration-mode-toggle" role="group" aria-label="Modo de calibración">
+        <button
+          className={`button button-small ${mode === 'calibrar' ? 'button-primary' : 'button-muted'}`}
+          onClick={() => changeMode('calibrar')}
+          disabled={captureStage !== 'idle'}
+          aria-pressed={mode === 'calibrar'}
+        >
+          Calibrar
+        </button>
+        <button
+          className={`button button-small ${mode === 'probar' ? 'button-primary' : 'button-muted'}`}
+          onClick={() => changeMode('probar')}
+          disabled={captureStage !== 'idle'}
+          aria-pressed={mode === 'probar'}
+        >
+          Probar
+        </button>
+      </div>
       <div className="letter-grid calibration-letter-grid" aria-label="Elige una letra">
         {[...ALPHABET].map((option) => (
           <button
@@ -300,7 +403,7 @@ export function Calibration({
         <button className="button button-small" onClick={() => combineInput.current?.click()}>
           Combinar JSON de otra persona
         </button>
-        {letter && (
+        {letter && mode === 'calibrar' && (
           <button
             className="button button-danger"
             onClick={handleDelete}
@@ -358,6 +461,91 @@ export function Calibration({
               )
             })}
         </div>
+      </section>
+
+      <section className="confusion-panel">
+        <h2>Prueba de confusión</h2>
+        {!confusionRows.length && (
+          <p>Elige Probar y haz cada letra unas 5 veces.</p>
+        )}
+        <div className="confusion-actions">
+          <button className="button button-small" onClick={() => void handleCopyAttempts()}>
+            Copiar resultados
+          </button>
+          <button className="button button-small button-danger" onClick={handleClearAttempts}>
+            Borrar pruebas
+          </button>
+        </div>
+        {confusionRows.length > 0 && (
+          <div className="confusion-table-wrap">
+            <table className="confusion-table">
+              <thead>
+                <tr>
+                  <th>Letra</th>
+                  <th>Intentos</th>
+                  <th>Aciertos</th>
+                  <th>Se confundió con</th>
+                </tr>
+              </thead>
+              <tbody>
+                {confusionRows.map((row) => {
+                  const confusions = Object.entries(row.confusedWith)
+                    .sort(
+                      ([firstLetter, firstCount], [secondLetter, secondCount]) =>
+                        secondCount - firstCount ||
+                        firstLetter.localeCompare(secondLetter),
+                    )
+                    .map(([otherLetter, count]) => `${otherLetter} (${count})`)
+                    .join(', ')
+                  return (
+                    <tr key={row.target}>
+                      <th scope="row">{row.target}</th>
+                      <td>{row.attempts}</td>
+                      <td>{row.correct}</td>
+                      <td>{confusions || '—'}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <section className="confusion-panel similar-letters-panel">
+        <h2>Letras parecidas y qué las separa</h2>
+        <p>Las medidas extra solo existen en letras calibradas desde ahora.</p>
+        {similarPairs.length ? (
+          <ul className="similar-pair-list">
+            {similarPairs.map(([firstLetter, secondLetter]) => {
+              const first = letters[firstLetter]
+              const second = letters[secondLetter]
+              const separating = first && second
+                ? separatingFeatures(first, second).slice(0, 3)
+                : []
+              return (
+                <li className="similar-pair-card" key={`${firstLetter}-${secondLetter}`}>
+                  <strong>{firstLetter} y {secondLetter}</strong>
+                  {separating.length ? (
+                    <ul>
+                      {separating.map(({ feature, ratio }) => (
+                        <li key={feature}>
+                          {FEATURES[feature].label} ({ratio.toFixed(1)}×)
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>
+                      Ninguna medida las separa todavía: vuelve a calibrar estas dos letras.
+                    </p>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        ) : (
+          <p>No encontramos letras parecidas todavía.</p>
+        )}
       </section>
     </main>
   )

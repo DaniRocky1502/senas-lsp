@@ -37,6 +37,10 @@ La calibración está pensada para profes y personas que conocen LSP. Para guard
 
 Desde esa pantalla también puedes copiar el JSON de todas las letras para compartirlo, importar un archivo JSON o borrar tu versión de una letra. **Borrador** indica que la seña aún no se ha confirmado; no la uses como referencia oficial.
 
+## Medidas extra y prueba de confusión
+
+Al calibrar una letra nueva se guardan también otras medidas, como dónde están las puntas y hacia dónde apuntan los dedos. Por ahora, solo cuánto se doblan los dedos cambia el puntaje; las medidas extra no afectan el juego. Elige **Probar** y haz cada letra unas cinco veces para ver qué letras reconoce la app y con cuáles se confunde. El panel **Letras parecidas y qué las separa** muestra las medidas que más ayudan a distinguirlas.
+
 ## Combinar calibraciones de varias personas
 
 Cada persona calibra las letras que quiera y pulsa **Descargar JSON** para guardar sus calibraciones en un archivo. Luego comparte ese archivo; la otra persona pulsa **Combinar JSON de otra persona** para sumarlo a sus letras. Al combinar, los rangos se ensanchan para aceptar ambas manos. Si dos letras empiezan a confundirse, vuelve a calibrarlas.
