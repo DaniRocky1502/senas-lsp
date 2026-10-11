@@ -74,12 +74,18 @@ export function buildFingerLetter(
   samples: Record<FeatureId, number>[],
   previous?: LetterDef,
 ): LetterDef {
+  const fingerConstraints = proposeConstraints(samples, FINGER_FEATURES)
+  const recordedConstraints = proposeConstraints(
+    samples,
+    FEATURE_IDS.filter((feature) => !FINGER_FEATURES.includes(feature)),
+  ).map((constraint) => ({ ...constraint, weight: 0 }))
+
   return {
     letter,
     status: 'calibrada',
     description: (previous?.description ?? '')
       .replace(/\s*\(BORRADOR[^)]*\)/, '')
       .trim(),
-    constraints: proposeConstraints(samples, FINGER_FEATURES),
+    constraints: [...fingerConstraints, ...recordedConstraints],
   }
 }

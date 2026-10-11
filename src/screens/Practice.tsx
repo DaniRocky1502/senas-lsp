@@ -68,28 +68,31 @@ export function Practice({
               <HelpBubble tip={evaluation?.tip ?? 'Muestra tu mano a la cámara'} />
               <h2>Probemos cada parte</h2>
               <ul className="constraint-list">
-                {definition.constraints.map((constraint, index) => {
-                  const result = evaluation?.perConstraint[index]
-                  const state = !result
-                    ? 'waiting'
-                    : result.score >= 0.8
-                      ? 'good'
-                      : result.score >= 0.5
-                        ? 'close'
-                        : 'try-again'
-                  const feature = FEATURES[constraint.feature]
-                  return (
-                    <li key={`${constraint.feature}-${index}`} className={`constraint-row ${state}`}>
-                      <span aria-hidden="true">{state === 'good' ? '✓' : state === 'close' ? '●' : '○'}</span>
-                      <span>{feature.label}</span>
-                      <strong>
-                        {result
-                          ? `${feature.kind === 'angle' ? Math.round(result.value) : result.value.toFixed(2)}${feature.unit}`
-                          : '—'}
-                      </strong>
-                    </li>
-                  )
-                })}
+                {definition.constraints
+                  .map((constraint, index) => ({ constraint, index }))
+                  .filter(({ constraint }) => (constraint.weight ?? 1) > 0)
+                  .map(({ constraint, index }) => {
+                    const result = evaluation?.perConstraint[index]
+                    const state = !result
+                      ? 'waiting'
+                      : result.score >= 0.8
+                        ? 'good'
+                        : result.score >= 0.5
+                          ? 'close'
+                          : 'try-again'
+                    const feature = FEATURES[constraint.feature]
+                    return (
+                      <li key={`${constraint.feature}-${index}`} className={`constraint-row ${state}`}>
+                        <span aria-hidden="true">{state === 'good' ? '✓' : state === 'close' ? '●' : '○'}</span>
+                        <span>{feature.label}</span>
+                        <strong>
+                          {result
+                            ? `${feature.kind === 'angle' ? Math.round(result.value) : result.value.toFixed(2)}${feature.unit}`
+                            : '—'}
+                        </strong>
+                      </li>
+                    )
+                  })}
               </ul>
             </div>
           </div>

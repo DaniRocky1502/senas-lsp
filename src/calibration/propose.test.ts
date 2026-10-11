@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { FEATURE_IDS, type FeatureId } from '../geometry/features'
+import {
+  FEATURE_IDS,
+  type FeatureId,
+  type FeatureValues,
+} from '../geometry/features'
+import { evaluateLetter } from '../scoring/evaluate'
 import {
   buildFingerLetter,
   FINGER_FEATURES,
@@ -55,7 +60,7 @@ describe('proposeConstraints', () => {
     )
   })
 
-  it('crea una letra con solo las cinco posiciones de los dedos', () => {
+  it('crea una letra con cinco medidas activas y guarda el resto sin puntaje', () => {
     const letter = buildFingerLetter(
       'A',
       makeSamples(10),
@@ -75,13 +80,35 @@ describe('proposeConstraints', () => {
       'curl.pinky',
     ])
     expect(letter.constraints.map((constraint) => constraint.feature)).toEqual(
-      FINGER_FEATURES,
+      FEATURE_IDS,
     )
-    expect(letter.constraints.every((constraint) =>
-      !('required' in constraint) && !('weight' in constraint),
-    )).toBe(true)
+    expect(
+      letter.constraints
+        .slice(0, FINGER_FEATURES.length)
+        .every((constraint) => constraint.weight === undefined),
+    ).toBe(true)
+    expect(
+      letter.constraints
+        .slice(FINGER_FEATURES.length)
+        .every((constraint) => constraint.weight === 0),
+    ).toBe(true)
     expect(letter.status).toBe('calibrada')
     expect(letter.description).toBe('Puño cerrado')
+  })
+
+  it('mantiene el mismo puntaje que una letra con solo los cinco doblados', () => {
+    const fullLetter = buildFingerLetter('A', makeSamples(10))
+    const curlsOnly = {
+      ...fullLetter,
+      constraints: fullLetter.constraints.slice(0, FINGER_FEATURES.length),
+    }
+    const features = Object.fromEntries(
+      FEATURE_IDS.map((feature) => [feature, 4.5]),
+    ) as FeatureValues
+
+    expect(evaluateLetter(fullLetter, features, 1).score).toBe(
+      evaluateLetter(curlsOnly, features, 1).score,
+    )
   })
 
   it('no crea una letra con menos de diez muestras', () => {
