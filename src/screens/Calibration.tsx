@@ -23,7 +23,7 @@ import { evaluateLetter } from '../scoring/evaluate'
 import type { LetterSet } from '../scoring/types'
 import type { TrackedHand } from '../vision/useHandTracking'
 
-const ALPHABET = 'ABCDEFGHIKLMNÑOPQRSTUVWXY'
+const ALPHABET = 'ABCDEFGHIKLMNOPQRSTUVWXY'
 
 type CaptureStage = 'idle' | 'countdown' | 'recording'
 
@@ -94,9 +94,9 @@ export function Calibration({
         setAttempts(loadAttempts())
         const acceptedLetters = result.accepted.length
           ? result.accepted.join(', ')
-          : 'ninguna letra'
+          : 'ninguna'
         setMessage(
-          `La app creyó que era ${result.recognized}. También pasaron el 90%: ${acceptedLetters}.`,
+          `La app creyó que era ${result.recognized}. Letras que pasaron el 90%: ${acceptedLetters}.`,
         )
       } else {
         const definition = buildFingerLetter(

@@ -182,7 +182,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Voltea la mano',
   },
   'tip.thumb.x': {
-    label: 'Punta del pulgar de lado',
+    label: 'Punta del pulgar: a lo ancho de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -190,7 +190,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del pulgar como en la imagen',
   },
   'tip.thumb.y': {
-    label: 'Punta del pulgar hacia adelante',
+    label: 'Punta del pulgar: a lo alto de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -198,7 +198,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del pulgar como en la imagen',
   },
   'tip.index.x': {
-    label: 'Punta del índice de lado',
+    label: 'Punta del índice: a lo ancho de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -206,7 +206,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del índice como en la imagen',
   },
   'tip.index.y': {
-    label: 'Punta del índice hacia adelante',
+    label: 'Punta del índice: a lo alto de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -214,7 +214,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del índice como en la imagen',
   },
   'tip.middle.x': {
-    label: 'Punta del dedo del medio de lado',
+    label: 'Punta del dedo del medio: a lo ancho de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -222,7 +222,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del dedo del medio como en la imagen',
   },
   'tip.middle.y': {
-    label: 'Punta del dedo del medio hacia adelante',
+    label: 'Punta del dedo del medio: a lo alto de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -230,7 +230,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del dedo del medio como en la imagen',
   },
   'tip.ring.x': {
-    label: 'Punta del anular de lado',
+    label: 'Punta del anular: a lo ancho de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -238,7 +238,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del anular como en la imagen',
   },
   'tip.ring.y': {
-    label: 'Punta del anular hacia adelante',
+    label: 'Punta del anular: a lo alto de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -246,7 +246,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del anular como en la imagen',
   },
   'tip.pinky.x': {
-    label: 'Punta del dedo chiquito de lado',
+    label: 'Punta del dedo chiquito: a lo ancho de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
@@ -254,7 +254,7 @@ export const FEATURES: Record<FeatureId, FeatureInfo> = {
     helpAbove: 'Mueve la punta del dedo chiquito como en la imagen',
   },
   'tip.pinky.y': {
-    label: 'Punta del dedo chiquito hacia adelante',
+    label: 'Punta del dedo chiquito: a lo alto de la palma',
     unit: '',
     kind: 'linear',
     defaultTolerance: 0.25,
