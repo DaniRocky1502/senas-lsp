@@ -740,6 +740,12 @@ p {
   margin: -12px 0 16px 76px;
 }
 
+.calibration-import-help {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0;
+}
+
 .calibration-letter-grid {
   margin-top: 12px;
 }

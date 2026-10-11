@@ -1,5 +1,6 @@
 import defaults from './lsp-letters.json'
 import { FEATURE_IDS } from '../geometry/features'
+import { combineLetter } from './combine'
 import { isPlayableLetter } from '../scoring/evaluate'
 import type { LetterDef, LetterSet } from '../scoring/types'
 
@@ -85,7 +86,7 @@ export function exportLetters(): string {
   return JSON.stringify(loadLetters(), null, 2)
 }
 
-export function importLetters(json: string): number {
+function parseLetters(json: string): LetterSet {
   let parsed: unknown
   try {
     parsed = JSON.parse(json)
@@ -102,9 +103,37 @@ export function importLetters(json: string): number {
   if (!entries.every(([key, value]) => isLetterDef(value, key))) {
     throw new Error('El JSON debe tener letras válidas con sus condiciones.')
   }
+  return parsed as LetterSet
+}
+
+export function importLetters(json: string): number {
+  const parsed = parseLetters(json)
+  const entries = Object.entries(parsed)
   localStorage.setItem(
     STORAGE_KEY,
     JSON.stringify({ ...readOverrides(), ...parsed }),
   )
   return entries.length
+}
+
+export function combineImportedLetters(json: string): number {
+  const incomingLetters = parseLetters(json)
+  const currentLetters = loadLetters()
+  const overrides = readOverrides()
+  const combined: LetterSet = {}
+
+  for (const [key, incoming] of Object.entries(incomingLetters)) {
+    const current = currentLetters[key]
+    const result = current ? combineLetter(current, incoming) : incoming
+    if (!isLetterDef(result, key)) {
+      throw new Error('La letra tiene datos que no son válidos.')
+    }
+    combined[key] = result
+  }
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({ ...overrides, ...combined }),
+  )
+  return Object.keys(incomingLetters).length
 }

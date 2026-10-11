@@ -2,7 +2,14 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { CameraView } from '../components/CameraView'
 import { buildFingerLetter, FINGER_FEATURES } from '../calibration/propose'
 import { FEATURES, type FeatureId } from '../geometry/features'
-import { deleteLetterOverride, exportLetters, importLetters, loadLetters, saveLetter } from '../letters/store'
+import {
+  combineImportedLetters,
+  deleteLetterOverride,
+  exportLetters,
+  importLetters,
+  loadLetters,
+  saveLetter,
+} from '../letters/store'
 import { evaluateLetter } from '../scoring/evaluate'
 import type { LetterSet } from '../scoring/types'
 import type { TrackedHand } from '../vision/useHandTracking'
@@ -40,6 +47,7 @@ export function Calibration({
   const countdownTimer = useRef<number | null>(null)
   const captureTimer = useRef<number | null>(null)
   const importInput = useRef<HTMLInputElement>(null)
+  const combineInput = useRef<HTMLInputElement>(null)
   const startCaptureRef = useRef<(nextLetter: string) => void>(() => {})
 
   useEffect(() => {
@@ -151,12 +159,49 @@ export function Calibration({
     }
   }
 
+  function handleDownload() {
+    let objectUrl: string | null = null
+    try {
+      const blob = new Blob([exportLetters()], { type: 'application/json' })
+      objectUrl = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = objectUrl
+      link.download = 'letras-lsp.json'
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      setMessage('¡Descargamos el JSON de todas las letras!')
+      setMessageError(false)
+    } catch {
+      setMessage('No pudimos descargar el archivo.')
+      setMessageError(true)
+    } finally {
+      if (objectUrl) {
+        const url = objectUrl
+        window.setTimeout(() => URL.revokeObjectURL(url), 0)
+      }
+    }
+  }
+
   async function handleImport(file: File | undefined) {
     if (!file) return
     try {
       const count = importLetters(await file.text())
       onLettersChangedRef.current(loadLetters())
       setMessage(`¡Importamos ${count} letras!`)
+      setMessageError(false)
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'No pudimos importar el archivo.')
+      setMessageError(true)
+    }
+  }
+
+  async function handleCombineImport(file: File | undefined) {
+    if (!file) return
+    try {
+      const count = combineImportedLetters(await file.text())
+      onLettersChangedRef.current(loadLetters())
+      setMessage(`¡Combinamos ${count} letras con las tuyas!`)
       setMessageError(false)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'No pudimos importar el archivo.')
@@ -246,8 +291,14 @@ export function Calibration({
         <button className="button button-small" onClick={handleExport}>
           Copiar JSON de todas las letras
         </button>
+        <button className="button button-small" onClick={handleDownload}>
+          Descargar JSON
+        </button>
         <button className="button button-small" onClick={() => importInput.current?.click()}>
-          Importar JSON
+          Importar JSON (reemplaza)
+        </button>
+        <button className="button button-small" onClick={() => combineInput.current?.click()}>
+          Combinar JSON de otra persona
         </button>
         {letter && (
           <button
@@ -268,7 +319,20 @@ export function Calibration({
             event.target.value = ''
           }}
         />
+        <input
+          ref={combineInput}
+          className="visually-hidden"
+          type="file"
+          accept="application/json,.json"
+          onChange={(event) => {
+            void handleCombineImport(event.target.files?.[0])
+            event.target.value = ''
+          }}
+        />
       </div>
+      <p className="calibration-import-help">
+        Reemplazar cambia tus letras por las del archivo. Combinar las suma: la letra aceptará ambas manos.
+      </p>
       {message && (
         <p className={`form-message ${messageError ? 'message-error' : ''}`} role="status">
           {message}

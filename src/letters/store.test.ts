@@ -1,5 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { exportLetters, importLetters, loadLetters } from './store'
+import {
+  combineImportedLetters,
+  exportLetters,
+  importLetters,
+  loadLetters,
+} from './store'
 
 const originalLetter = {
   letter: 'A',
@@ -81,5 +86,46 @@ describe('almacenamiento local de letras', () => {
     expect(importLetters(JSON.stringify({ B: second }))).toBe(1)
     expect(loadLetters().A).toEqual(first)
     expect(loadLetters().B).toEqual(second)
+  })
+
+  it('ensancha una letra del conjunto inicial al combinar otra calibración', () => {
+    const defaultA = loadLetters().A
+    const defaultThumb = defaultA.constraints.find(
+      (constraint) => constraint.feature === 'curl.thumb',
+    )!
+    const incoming = {
+      ...originalLetter,
+      constraints: [
+        {
+          feature: 'curl.thumb' as const,
+          min: defaultThumb.min - 10,
+          max: defaultThumb.max + 10,
+        },
+      ],
+    }
+
+    expect(combineImportedLetters(JSON.stringify({ A: incoming }))).toBe(1)
+
+    const combined = loadLetters().A.constraints.find(
+      (constraint) => constraint.feature === 'curl.thumb',
+    )!
+    expect(combined.min).toBe(defaultThumb.min - 10)
+    expect(combined.max).toBe(defaultThumb.max + 10)
+  })
+
+  it('guarda sin cambios una letra que no estaba en el conjunto inicial', () => {
+    const incoming = { ...originalLetter, letter: 'Ñ' }
+
+    expect(combineImportedLetters(JSON.stringify({ 'Ñ': incoming }))).toBe(1)
+    expect(loadLetters()['Ñ']).toEqual(incoming)
+  })
+
+  it('combina con los mismos errores de JSON inválido y archivo vacío', () => {
+    expect(() => combineImportedLetters('no es json')).toThrow(
+      'El texto no es un JSON válido.',
+    )
+    expect(() => combineImportedLetters('{}')).toThrow(
+      'El archivo no tiene ninguna letra.',
+    )
   })
 })
